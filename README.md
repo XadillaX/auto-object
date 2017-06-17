@@ -6,7 +6,8 @@
 [![TravisCI](https://travis-ci.org/XadillaX/auto-object.svg)](https://travis-ci.org/XadillaX/auto-object)
 [![Dependency](https://david-dm.org/XadillaX/auto-object.svg)](https://david-dm.org/XadillaX/auto-object)
 
-Create an object or a class that may accessed by any property name.
+Create an object or a class that may accessed by any property name just like
+[Proxy](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy).
 
 eg.
 
