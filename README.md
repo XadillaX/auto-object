@@ -38,7 +38,7 @@ $ npm install --save auto-object
 Require `auto-object` at first:
 
 ```js
-const autoObject = require("auto");
+const autoObject = require("auto-object");
 ```
 
 ### createClass
