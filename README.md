@@ -1,5 +1,12 @@
 # auto-object
 
+[![Version](http://img.shields.io/npm/v/auto-object.svg)](https://www.npmjs.com/package/auto-object)
+[![Downloads](http://img.shields.io/npm/dm/auto-object.svg)](https://www.npmjs.com/package/auto-object)
+[![License](https://img.shields.io/npm/l/auto-object.svg?style=flat)](https://opensource.org/licenses/MIT)
+<!-- [![AppVeypr](https://ci.appveyor.com/api/projects/status/9qdfjl7ig6s9d72s/branch/master?svg=true)](https://ci.appveyor.com/project/XadillaX/aliyun-ons) -->
+[![TravisCI](https://travis-ci.org/XadillaX/auto-object.svg)](https://travis-ci.org/XadillaX/auto-object)
+[![Dependency](https://david-dm.org/XadillaX/auto-object.svg)](https://david-dm.org/XadillaX/auto-object)
+
 Create an object or a class that may accessed by any property name.
 
 eg.
