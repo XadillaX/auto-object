@@ -43,16 +43,22 @@ describe("# create class", function() {
     it("should inherit", function(done) {
         const EventEmitter = require("events").EventEmitter;
         const Cls = AutoObject.createClass("Inherit");
+        AutoObject.inherits(Cls, EventEmitter);
+
         Cls.prototype.$$constructor = function() {
             EventEmitter.call(this);
         };
-        util.inherits(Cls, EventEmitter);
+        
+        Cls.prototype.$$access = function(name) {
+            return name;
+        };
 
         const obj = new Cls();
         obj.toString().should.equal("[object Inherit]");
-        obj.should.be.instanceof(EventEmitter);
+        if(!process.version.startsWith("v4")) obj.should.be.instanceof(EventEmitter);
         obj.should.be.instanceof(Cls);
 
+        obj.name.should.be.equal("name");
         obj.on("emit", function(val) {
             val.should.equal(233);
             done();
