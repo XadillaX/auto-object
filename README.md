@@ -239,6 +239,27 @@ delete obj.foo;
 obj.foo;                ///< "You're hacked"
 ```
 
+### Hacking `util.inherits`*
+
+If you're using Node.js v4.x or you're considering to backward compatible v4.x
+in your program, you should not use `util.inherits` to inherit your Auto-Object
+class.
+
+As a substitute, you should use `autoObject.inherits` instead. This function is
+same as `util.inherits` when you're using v6.x or higher. But if you're using
+v4.x, it's a hacking.
+
+The code is like this under v4.x:
+
+```js
+for(const key in superCtor.prototype) {
+    ctor.prototype[key] = superCtor.prototype[key];
+}
+```
+
+The behavior is not 100% same as `util.inherits`. So in fact I don't recommend
+you use this package under v4.x.
+
 ## Contribution
 
 You're welcome to fork and make pull requests!
