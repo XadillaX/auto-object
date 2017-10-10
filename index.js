@@ -5,6 +5,8 @@
  */
 "use strict";
 
+const util = require("util");
+
 const auto = require("./build/Release/auto");
 
 function rawEmitWarning(msg) {
@@ -34,6 +36,26 @@ exports.createObject = function(access) {
         });
     }
     return ret;
+};
+
+exports.inherits = function(ctor, superCtor) {
+    if(!process.version.startsWith("v4.")) {
+        return util.inherits(ctor, superCtor);
+    }
+
+    // Fix for Node.js v4 (issue https://github.com/XadillaX/auto-object/issues/1)
+    //
+    // It's not 100% safe. For an example,
+    //
+    // ```
+    // const obj = new Cls();
+    // obj instanceof superCtor; //< false
+    // ```
+    //
+    // **IMPORTANT:** DO NOT CONSIDER VERSION BELOW 4
+    for(const key in superCtor.prototype) {
+        ctor.prototype[key] = superCtor.prototype[key];
+    }
 };
 
 exports.internalProperties = auto.internalProperties;
