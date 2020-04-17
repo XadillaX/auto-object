@@ -6,6 +6,11 @@
   "scripts": {
     "test": "make test"
   },
+  "files": [
+      "index.js",
+      "src/auto.cc",
+      "binding.gyp"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/XadillaX/auto-object.git"
