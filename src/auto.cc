@@ -48,7 +48,7 @@ void PropertyGetter(
     }
 
     // ignore reserve property `$$access`
-    String::Utf8Value key(property);
+    Nan::Utf8String key(property);
     if(!*key || strcmp(*key, "$$access") == 0)
     {
         return;
@@ -142,6 +142,7 @@ NAN_METHOD(__Constructor)
 
 NAN_METHOD(CreateObject)
 {
+    auto ctx = Nan::GetCurrentContext();
     Local<ObjectTemplate> tpl = Nan::New<ObjectTemplate>();
     tpl->SetHandler(NamedPropertyHandlerConfiguration(
                 PropertyGetter,
@@ -151,7 +152,7 @@ NAN_METHOD(CreateObject)
                 0,
                 Local<Value>(),
                 PropertyHandlerFlags::kNonMasking));
-    info.GetReturnValue().Set(tpl->NewInstance());
+    info.GetReturnValue().Set(tpl->NewInstance(ctx).ToLocalChecked());
 }
 
 NAN_METHOD(CreateClass)
@@ -172,11 +173,12 @@ NAN_METHOD(CreateClass)
             Local<Value>(),
             PropertyHandlerFlags::kNonMasking));
 
+    auto ctx = Nan::GetCurrentContext();
     Nan::TryCatch trycatch;
     Local<String> class_name = Nan::New("AutoClass").ToLocalChecked();
     if(info.Length() > 0)
     {
-        MaybeLocal<String> maybe = info[0]->ToString();
+        MaybeLocal<String> maybe = info[0]->ToString(ctx);
         if(!maybe.IsEmpty())
         {
             class_name = maybe.ToLocalChecked();
@@ -190,12 +192,13 @@ NAN_METHOD(CreateClass)
     }
 
     tpl->SetClassName(class_name);
-    info.GetReturnValue().Set(tpl->GetFunction());
+    info.GetReturnValue().Set(tpl->GetFunction(ctx).ToLocalChecked());
 }
 
 NAN_METHOD(InitEnv)
 {
-    Local<Object> param = info[0]->ToObject();
+    auto ctx = Nan::GetCurrentContext();
+    Local<Object> param = info[0]->ToObject(ctx).ToLocalChecked();
     Local<Function> func = Nan::Get(
             param,
             Nan::New("emitWarning").ToLocalChecked()).ToLocalChecked().As<Function>();
